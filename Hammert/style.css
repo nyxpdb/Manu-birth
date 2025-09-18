@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pokémon andando — Exemplo</title>
+  <style>
+    :root{
+      --size: 120px;
+      --ground: 80px;
+    }
+    html,body{height:100%;margin:0;font-family:system-ui,Segoe UI,Roboto,Arial}
+    .stage{
+      position:relative;
+      height:100vh;
+      background: linear-gradient(#9bd, #eaf);
+      overflow:hidden;
+    }
+
+    .ground{
+      position:absolute;left:0;right:0;bottom:0;height:var(--ground);
+      background: linear-gradient(90deg,#6b8 0 30%, #4a6 30% 60%, #6b8 60%);
+      box-shadow: inset 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .pokemon{
+      position:absolute;
+      left:0;
+      bottom: calc(var(--ground) - 10px);
+      width:var(--size);
+      height:var(--size);
+      background-image: url('assets/eve.png'); /* imagem atualizada */
+      background-size: cover;
+      background-repeat: no-repeat;
+      will-change: transform;
+      transform-origin: center;
+      animation: moveX var(--duration) linear infinite alternate;
+      display:flex;align-items:flex-end;justify-content:center;
+    }
+
+    .pokemon::after{
+      content:'';
+      width:100%;height:18%;
+      background:transparent;
+      display:block;
+      animation: bob calc(var(--duration) / 8) steps(2) infinite;
+    }
+
+    .facing-left{ transform: scaleX(-1); }
+    .facing-right{ transform: scaleX(1); }
+
+    @keyframes moveX{
+      0%{ transform: translateX(0) translateY(0) scaleX(1); }
+      100%{ transform: translateX(calc(100vw - var(--size) - 20px)) translateY(0) scaleX(1); }
+    }
+
+    @keyframes bob{
+      0%{ transform: translateY(0); }
+      50%{ transform: translateY(-8px); }
+      100%{ transform: translateY(0); }
+    }
+
+    .ui{
+      position:fixed;left:12px;top:12px;background:rgba(255,255,255,0.85);
+      padding:10px;border-radius:8px;backdrop-filter: blur(4px);
+      box-shadow:0 6px 20px rgba(0,0,0,0.12);
+    }
+    .ui label{display:block;font-size:13px;margin-top:6px}
+    .ui input[type=range]{width:200px}
+    .ui button{margin-top:8px;padding:6px 10px;border-radius:6px;border:0;cursor:pointer}
+
+    @media (max-width:420px){:root{--size:84px}}
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div id="poke" class="pokemon facing-right" style="--duration:4s"></div>
+    <div class="ground"></div>
+  </div>
+
+  <div class="ui">
+    <strong>Controle</strong>
+    <label>Velocidade: <span id="spdText">4s</span></label>
+    <input id="speed" type="range" min="1" max="8" step="0.1" value="4">
+    <label>Direção inicial</label>
+    <button id="dirBtn">Alternar direção</button>
+    <br>
+    <button id="pauseBtn">Pausar</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+
+  <script>
+    const poke = document.getElementById('poke');
+    const speed = document.getElementById('speed');
+    const spdText = document.getElementById('spdText');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const dirBtn = document.getElementById('dirBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function updateSpeed(val){
+      const dur = val + 's';
+      poke.style.setProperty('--duration', dur);
+      spdText.textContent = dur;
+      poke.style.animation = 'none';
+      void poke.offsetWidth;
+      poke.style.animation = '';
+    }
+
+    speed.addEventListener('input', e => updateSpeed(e.target.value));
+
+    dirBtn.addEventListener('click', ()=>{
+      if(poke.classList.contains('facing-right')){
+        poke.classList.remove('facing-right');
+        poke.classList.add('facing-left');
+      } else {
+        poke.classList.remove('facing-left');
+        poke.classList.add('facing-right');
+      }
+    });
+
+    pauseBtn.addEventListener('click', ()=>{
+      const running = getComputedStyle(poke).animationPlayState !== 'paused';
+      poke.style.animationPlayState = running ? 'paused' : 'running';
+      pauseBtn.textContent = running ? 'Continuar' : 'Pausar';
+    });
+
+    resetBtn.addEventListener('click', ()=>{
+      poke.style.animation = 'none';
+      void poke.offsetWidth;
+      poke.style.animation = '';
+      poke.classList.remove('facing-left');
+      poke.classList.add('facing-right');
+    });
+
+    poke.addEventListener('animationiteration', ()=>{
+      if(poke.classList.contains('facing-right')){
+        poke.classList.remove('facing-right');
+        poke.classList.add('facing-left');
+      } else {
+        poke.classList.remove('facing-left');
+        poke.classList.add('facing-right');
+      }
+    });
+
+    updateSpeed(speed.value);
+  </script>
+</body>
+</html>
