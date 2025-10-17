@@ -51,8 +51,8 @@
         .pokemon { position: fixed; bottom: 20px; left: 0px; width: 120px; height: 120px; z-index: 1000; }
         .pokemon-sprite { width:100%; height:100%; background-size: contain; background-repeat: no-repeat; background-position: center; }
         .pokemon-sprite::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: contain; background-repeat: no-repeat; background-position: center; opacity: 0; transition: opacity 0.4s ease-in-out; }
-        .pokemon-sprite.walking { background-image: url('assets/pokemon/sylveon-walking.png'); }
-        .pokemon-sprite.sitting::before { background-image: url('assets/pokemon/sylveon-sitting.png'); opacity: 1; }
+        .pokemon-sprite.walking { background-image: url('assets/pokemon/eve-walking.png'); }
+        .pokemon-sprite.sitting::before { background-image: url('assets/pokemon/eve-sit.png'); opacity: 1; }
 
         /* SELETOR DE TEMAS */
         #theme-switcher { position: fixed; top: 20px; right: 20px; z-index: 1002; display: flex; gap: 8px; background: rgba(255,255,255,0.8); padding: 8px; border-radius: 20px; backdrop-filter: blur(5px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
@@ -70,12 +70,6 @@
         #saved-signature-container { margin-top: 20px; background: rgba(0,0,0,0.02); padding: 10px; border-radius: 10px; min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         #saved-signature { max-width: 400px; max-height: 200px; }
 
-        /* CRÉDITOS FINAIS */
-        #credits-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 3000; color: white; display: none; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; overflow: hidden; }
-        .credits-content { position: absolute; bottom: 0; width: 100%; animation: scroll-credits 25s linear forwards; }
-        .credits-content p { margin: 10px 0; font-size: 1.5em; text-align: center; }
-        .credits-content p.role { font-weight: bold; font-size: 1.8em; margin-top: 30px; color: #ffeb3b; }
-        @keyframes scroll-credits { from { bottom: -100%; } to { bottom: 110%; } }
 
         .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .media-item { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
@@ -117,14 +111,6 @@
         #falling-hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .heart-fall { position: absolute; font-size: 1.5em; color: var(--primary-pink); opacity: 0.7; animation: fall linear infinite; }
         @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
-        .time-capsule ul { list-style: none; padding: 0; }
-        .time-capsule li { background: rgba(123, 31, 162, 0.05); margin-bottom: 10px; padding: 15px; border-radius: 8px; font-size: 1.1em; border-left: 4px solid var(--primary-purple); transition: background-color 0.3s ease; }
-        .time-capsule li:hover { background-color: rgba(123, 31, 162, 0.1); }
-        .time-capsule li::before { content: '🚀'; margin-right: 10px; }
-        #gift-container { text-align: center; margin-top: 40px; }
-        .gift-button { background: var(--gradient-bg); color: white; font-family: 'Poppins', sans-serif; font-size: 1.2em; font-weight: bold; border: none; padding: 15px 30px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
-        .gift-button:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(194, 24, 91, 0.4); }
-        .gift-reveal-text { padding: 30px; background: var(--card-bg-1); border-radius: 10px; font-family: 'Caveat', cursive; font-size: 2.5em; color: var(--primary-purple); display: none; }
     </style>
 </head>
 <body>
@@ -143,7 +129,7 @@
         <h1 class="animate-on-scroll">Feliz Aniversário, Manu!</h1>
         <div class="message">
             <p class="animate-on-scroll"><span id="typed-message"></span></p>
-            <p class="animate-on-scroll signature">Com todo o nosso amor!</p>
+            <p class="animate-on-scroll signature">Com todo amor!</p>
         </div>
         <h2 class="animate-on-scroll">Uma Viagem Pelas Nossas Memórias</h2>
         <div class="media-grid">
@@ -161,22 +147,6 @@
             <div class="media-item animate-on-scroll"><video controls muted loop><source src="assets/video/media-6.mp4" type="video/mp4"></video></div>
         </div>
         <div class="secret-spot" style="position: absolute; bottom: 50%; right: -15px;" data-secret="Essa é a minha foto favorita!">⭐</div>
-        <h2 class="animate-on-scroll">Recados de quem te adora</h2>
-        <div class="guestbook-grid">
-            <div class="card animate-on-scroll"><h4>Manu, você ilumina tudo! Parabéns!</h4><p>- Amigo(a) 1</p></div>
-            <div class="card animate-on-scroll"><h4>Muitas felicidades, hoje e sempre. Você merece o mundo!</h4><p>- Familiar 1</p></div>
-            <div class="card animate-on-scroll"><h4>Feliz aniversário! Mal posso esperar pela nossa próxima aventura.</h4><p>- Amigo(a) 2</p></div>
-            <div class="card animate-on-scroll"><h4>Que seu dia seja tão incrível quanto você. Beijos!</h4><p>- Amigo(a) 3</p></div>
-        </div>
-        <h2 class="animate-on-scroll">Nossa Próxima Aventura</h2>
-        <div class="time-capsule animate-on-scroll">
-            <ul>
-                <li>Fazer aquela viagem para a praia que sempre planejamos.</li>
-                <li>Maratonar nossa série favorita com um balde de pipoca.</li>
-                <li>Aprender algo novo juntos, nem que seja uma receita!</li>
-                <li>Continuar colecionando momentos inesquecíveis.</li>
-            </ul>
-        </div>
         <h2 class="animate-on-scroll">Deixe sua marca neste presente</h2>
         <div class="signature-pad-container animate-on-scroll">
             <canvas id="signature-canvas" width="400" height="200"></canvas>
@@ -189,26 +159,9 @@
                 <img id="saved-signature" src="" alt="Sua assinatura salva aparecerá aqui">
             </div>
         </div>
-        <h2 class="animate-on-scroll">E por último...</h2>
-        <div id="gift-container" class="animate-on-scroll">
-            <button id="gift-button" class="gift-button">Clique para sua última surpresa!</button>
-            <div id="gift-reveal" class="gift-reveal-text">
-                Vale um jantar no nosso restaurante favorito! ❤️
-            </div>
-        </div>
         <footer>Feito com carinho para a melhor Manu que existe</footer>
     </div>
     
-    <div id="credits-overlay">
-        <div class="credits-content">
-            <p class="role">Uma Surpresa Mágica</p><p>Estrelando</p><p>Manu</p>
-            <p class="role">Direção e Roteiro</p><p>[Seu Nome]</p>
-            <p class="role">Elenco de Apoio</p><p>Amigo(a) 1</p><p>Familiar 1</p><p>Amigo(a) 2 & 3</p>
-            <p class="role">Mascote Oficial</p><p>Sylveon</p>
-            <p class="role">Trilha Sonora</p><p>"Dream Girl"</p>
-            <p class="role">Agradecimentos Especiais</p><p>A você, por ser a pessoa mais incrível que conhecemos.</p><p>Feliz Aniversário!</p>
-        </div>
-    </div>
     
     <div id="poke" class="pokemon"><div class="pokemon-sprite"></div></div>
     
@@ -220,7 +173,7 @@
         </div>
     </div>
     <div id="music-player">
-        <img src="assets/audio/capa-album.jpeg" alt="Capa do Álbum" class="album-art">
+        <img src="assets/audio/audio-pic/pic.jpeg" alt="Capa do Álbum" class="album-art">
         <div class="player-controls">
             <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
             <svg id="pause-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
@@ -261,7 +214,7 @@
 
             // LÓGICA DO TEXTO DIGITADO
             const typedMessageSpan = document.getElementById('typed-message');
-            if (typedMessageSpan) { new Typed('#typed-message', { strings: ['Querida Manu, hoje é o dia de celebrar a pessoa incrível que você é. Criamos este pequeno universo de memórias com todo o carinho, para te lembrar dos momentos especiais que já vivemos e de todos os que ainda vamos viver. Feliz aniversário!'], typeSpeed: 40, showCursor: false, }); }
+            if (typedMessageSpan) { new Typed('#typed-message', { strings: ['For my namu 💜 (minha moça de saturno)\n\nHello there, the "soma que faltava na minha equação de segundo grau" how are you?\nIts your birthday!! Yay!!!!!\nI separated some videos and photos of us (unfortunately few)\nAnd I also wrote a little for you\n\nIts good to know that you are getting better with me by your side\nIts even better realize that im getting better with you by my side\nVocê é a minha alma gêmea\nNão o que faltava em mim, mas o que eu precisava pra somar e ter uma resposta concreta\n\nEu sempre amei você, e você sabe disso\neu te amo mais do que ontem e menos que amanhã\nSempre me importei com você também (30/01)\nEu diviria minhas meias com você <3\nI will kiss all your scars and do everything for you to be the happiest person in this world\nNosso relacionamento é como uma flor, nós platamos e cuidamos dela, assim como eu faço com você, cuido de você\nA gente fica em silêncio juntos, pq o importante é estar juntos\nYour laugh enchants me and brings me hope, when you compliment me, i feel like getting even closer, i love when you arrive, its literally the only thing i can think about\nAu amo silêncio, mas amo muito mais quando vc fala bastante\nI love you and I love loving you, I love the fact that you love me, that you understand me; I love your laugh, I love the way you look when you\'re embarrassed, I love your hair, your eyes, I love how you love "pompumpirim" and roblox, I love everything about you, If you were a book I would be sure to read all of you (even though I hate reading)\nSe você não tivesse fones e eu tivesse, eu te emprestaria eles, mesmo que significasse ficar dias sem fone\nWhen I say I want my house soon and people think that\'s where I live but in reality I\'m thinking about you\nI can see the stars in the sky, they are not as beautiful as the shine in your eyes\nToday i can see the moon, and im glad to realize that does not shine brighter than your beautiful eyes\nI love the way your eyes close when you smile\nEu simplesmente não consigo imaginar uma vida sem você\nI love you babe (for my sweet little angel)'], typeSpeed: 30, showCursor: false, }); }
 
             // LÓGICA DA ASSINATURA DIGITAL
             const canvas = document.getElementById('signature-canvas'); const signaturePad = new SignaturePad(canvas); const saveButton = document.getElementById('save-signature'); const clearButton = document.getElementById('clear-signature'); const savedImage = document.getElementById('saved-signature');
@@ -269,9 +222,6 @@
             saveButton.addEventListener('click', () => { if (!signaturePad.isEmpty()) { const dataURL = signaturePad.toDataURL(); savedImage.src = dataURL; localStorage.setItem('userSignature', dataURL); } else { alert("Por favor, desenhe sua assinatura primeiro."); } });
             const savedSignature = localStorage.getItem('userSignature'); if (savedSignature) { savedImage.src = savedSignature; }
 
-            // LÓGICA DOS CRÉDITOS FINAIS
-            const giftButton = document.getElementById('gift-button'); const giftReveal = document.getElementById('gift-reveal'); const creditsOverlay = document.getElementById('credits-overlay');
-            giftButton.addEventListener('click', () => { giftButton.style.display = 'none'; giftReveal.style.display = 'block'; setTimeout(() => { creditsOverlay.style.display = 'flex'; }, 4000); });
 
             // DEMAIS SCRIPTS (SCROLL, PLAYER, MODAL, SEGREDOS, CORAÇÕES)
             const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1 }); const elementsToAnimate = document.querySelectorAll('.animate-on-scroll'); elementsToAnimate.forEach(el => observer.observe(el));
